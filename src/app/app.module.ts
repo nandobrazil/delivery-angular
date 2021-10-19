@@ -1,3 +1,4 @@
+import { RestaurantsService } from './restaurants/restaurants.service';
 import { AppRouterModule } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,7 @@ import { RestaurantComponent } from './restaurants/restaurant/restaurant.compone
     HttpModule,
     AppRouterModule
   ],
-  providers: [],
+  providers: [RestaurantsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
