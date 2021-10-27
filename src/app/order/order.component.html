@@ -32,7 +32,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <mt-input-container>
-            <input type="text" class="form-control" name="optional" ngModel placeholder="Complemento">
+            <input type="text" class="form-control" name="optionalAdress" ngModel placeholder="Complemento">
           </mt-input-container>
         </div>
         <!-- /.col -->
@@ -58,7 +58,7 @@
           <p class="lead">Formas de Pagamento:</p>
 
             <div class="form-group">
-              <mt-radio [options]="paymentOptions" value="CRE" name="paymentOption" ngModel required></mt-radio>
+              <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required></mt-radio>
             </div>
         </div>
         <!-- /.col -->
@@ -74,7 +74,10 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <button href="order-summary.html" class="btn btn-success pull-right" [disabled]="!form.valid || cartItems().length === 0"><i class="fa fa-credit-card"></i> Concluir Pedido
+        <button (click)="checkOrder(form.value)" href="order-summary.html" 
+          class="btn btn-success pull-right"
+          [disabled]="!form.valid || cartItems().length === 0">
+            <i class="fa fa-credit-card"></i> Concluir Pedido
         </button>
       </div>
     </div>
