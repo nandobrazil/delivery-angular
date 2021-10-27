@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
+  delivery: number = 8
+
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'MON'},
     {label: 'Cartão de Débito', value: 'DEB'},
@@ -21,6 +23,10 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
   }
 
+  itemsValues(): number {
+    return this.orderService.itemsValue()
+  }
+
   cartItems(){
     return this.orderService.cartItems()
   }
@@ -31,6 +37,10 @@ export class OrderComponent implements OnInit {
 
   decreaseQty(item: CartItem){
     this.orderService.decreaseQty(item)
+  }
+
+  remover(item: CartItem){
+    this.orderService.remove(item)
   }
 
 }
