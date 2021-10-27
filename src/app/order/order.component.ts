@@ -4,6 +4,7 @@ import { RadioOption } from './../shared/radio/radio-option.model';
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -11,18 +12,32 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
 
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  numberPattern = /^[0-9]*$/
+  
+  orderForm: FormGroup
+
   delivery: number = 8
 
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'MON'},
     {label: 'Cartão de Débito', value: 'DEB'},
-    {label: 'Cartão de Crédito', value: 'CRE'},
     {label: 'Cartão Refeição', value: 'REF'}
   ]
 
-  constructor(private orderService: OrderService, private router: Router) { }
+  constructor(private orderService: OrderService, private router: Router,
+              private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.orderForm = this.fb.group({
+      name: this.fb.control('', [Validators.required, Validators.minLength(5)]),
+      email: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      emailConfirmation: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      address: this.fb.control('', [Validators.required, Validators.minLength(5)]),
+      number: this.fb.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
+      optionalAddress: this.fb.control(''),
+      paymentOption: this.fb.control('', [Validators.required])
+    })
   }
 
   itemsValues(): number {
@@ -53,7 +68,6 @@ export class OrderComponent implements OnInit {
       console.log(`Compra concluída: ${orderId}`)
       this.orderService.clear()
     })
-    console.log(order)
   }
 
 }
