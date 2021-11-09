@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './not-found/not-found.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { OrderComponent } from './order/order.component';
 import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
         ]},
     {path: 'order', loadChildren:'./order/order.module#OrderModule'},
     {path: 'order-summary', component: OrderSummaryComponent},
-    {path: 'about', loadChildren:'./about/about.module#AboutModule'}
+    {path: 'about', loadChildren:'./about/about.module#AboutModule'},
+    {path: '**', component: NotFoundComponent}
     ]
 
 @NgModule({
